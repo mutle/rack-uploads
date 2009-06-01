@@ -1,7 +1,7 @@
 = rack-uploads
 
 rack-uploads is a middleware which receives uploads and stores them in
-env\['rack.uploads'\] for easy access.
+in the Rack env for easy access.
 
 It works with normal HTTP file uploads, as well as with the Nginx Upload
 Module.
@@ -44,13 +44,14 @@ Development dependencies:
 There are a few options you can pass to rack-uploads during
 initializiation:
 
-:path => "/files" - This will check for file uploads only on POST requests
+<tt>:path => "/files"</tt> - This will check for file uploads only on POST requests
 to /files.
 
-:file_params => ["file", "Filedata"] - Sets which parameters to check for uploads. Default is
+<tt>:file_params => ["file", "Filedata"]</tt> - Sets which parameters to check for uploads. Default is
 "file" and "Filedata" (used by Flash uploaders)
 
-:session_authorized => lambda { |req| req.params['secret'] == "sekrit" } -
+<tt>:session_authorized => lambda { |req| req.params['secret'] == "sekrit"
+}</tt> -
 Only allow uploads with the parameter "secret" set to "sekrit"
 
 == Copyright
