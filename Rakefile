@@ -5,7 +5,7 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     gem.name = "rack-uploads"
-    gem.summary = %Q{TODO}
+    gem.summary = %Q{Rack Upload handler with Nginx Upload Module support}
     gem.email = "mutle@blogage.de"
     gem.homepage = "http://github.com/mutle/rack-uploads"
     gem.authors = ["Mutwin Kraus"]
