@@ -22,7 +22,12 @@ module Rack
       end
 
       def size
-        File.size(temp_path)
+        ::File.size(temp_path)
+      end
+
+      def method_missing(meth, *args)
+        return @file[meth.to_sym] if @file[meth.to_sym]
+        super(meth, *args)
       end
 
       def cleanup

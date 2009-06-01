@@ -1,6 +1,57 @@
 = rack-uploads
 
-Description goes here.
+rack-uploads is a middleware which receives uploads and stores them in
+env['rack.uploads'] for easy access.
+
+It works with normal HTTP file uploads, as well as with the Nginx Upload
+Module.
+
+== Dependencies
+
+Development dependencies:
+
+* rspec
+* rack-test
+
+== Usage
+
+  # Sinatra
+  use Rack::Uploads, :path => "/uploads"
+
+  post "/uploads" do
+    env['rack.uploads'].each do |upload|
+      upload.mv('/some/path/#{upload.filename}')
+    end
+  end
+
+
+  #Rails
+
+  # config/environment.rb
+  config.middleware.use "Rack::Uploads", :path => "/uploads"
+
+  # app/controller/uploads_controller.rb
+  class UploadsController < ApplicationController
+    def create
+      request['rack.uploads'].each do |upload|
+        upload.mv("#{RAILS_ROOT}/public/uploads/#{upload.filename}")
+      end
+    end
+  end
+
+== Options
+
+There are a few options you can pass to rack-uploads during
+initializiation:
+
+:path => "/files" - This will check for file uploads only on POST requests
+to /files.
+
+:file_params => ["file", "Filedata"] - Sets which parameters to check for uploads. Default is
+"file" and "Filedata" (used by Flash uploaders)
+
+:session_authorized => lambda { |req| req.params['secret'] == "sekrit" } -
+Only allow uploads with the parameter "secret" set to "sekrit"
 
 == Copyright
 

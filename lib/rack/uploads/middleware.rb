@@ -10,8 +10,7 @@ module Rack
 
     def call(env)
       req = Rack::Request.new(env)
-      if req.path_info == @path
-        return invalid_request unless req.post?
+      if req.path_info == @path && req.post?
         return not_authorized unless @session_authorized == true || (@session_authorized.respond_to?(:call) && @session_authorized.call(req) == true)
         uploads = []
         @file_params.each do |file_key|

@@ -63,13 +63,16 @@ describe Rack::Uploads do
       Rack::Uploads.new(hello_world, {:session_authorized => lambda {  |req| (req.env['rack.session'] && req.env['rack.session'][:user_id] && req.env['rack.session'][:user_id].to_i > 0) || (req.params['flash_token'] && req.params['flash_token'] == '123') }})
     end
 
-    it "should not allow non-post requests" do
+    it "should not respond to non-post requests" do
       get '/uploads'
-      last_response.status.should == 400
+      last_response.status.should == 200
+      last_response.body.should == "Hello, World!"
       put '/uploads'
-      last_response.status.should == 400
+      last_response.status.should == 200
+      last_response.body.should == "Hello, World!"
       delete '/uploads'
-      last_response.status.should == 400
+      last_response.status.should == 200
+      last_response.body.should == "Hello, World!"
     end
 
     it "should not allow unauthorized uploads" do
