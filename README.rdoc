@@ -1,7 +1,7 @@
 = rack-uploads
 
 rack-uploads is a middleware which receives uploads and stores them in
-env['rack.uploads'] for easy access.
+env\['rack.uploads'\] for easy access.
 
 It works with normal HTTP file uploads, as well as with the Nginx Upload
 Module.
@@ -15,7 +15,8 @@ Development dependencies:
 
 == Usage
 
-  # Sinatra
+=== Sinatra
+
   use Rack::Uploads, :path => "/uploads"
 
   post "/uploads" do
@@ -24,8 +25,7 @@ Development dependencies:
     end
   end
 
-
-  #Rails
+=== Rails
 
   # config/environment.rb
   config.middleware.use "Rack::Uploads", :path => "/uploads"
