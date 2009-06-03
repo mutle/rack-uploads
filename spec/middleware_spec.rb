@@ -97,7 +97,7 @@ describe Rack::Uploads do
   private
   def nginx_upload_request(key, name, temp_path="/tmp/rack_upload_nginx_tmp")
     FileUtils.cp multipart_file(name), temp_path
-    {"file_path" => temp_path, "#{key}_name" => name, "#{key}_content_type" => "text/plain", "#{key}_size" => File.size(multipart_file(name))}
+    {"#{key}_tmp_path" => temp_path, "#{key}_file_name" => name, "#{key}_content_type" => "text/plain", "#{key}_size" => File.size(multipart_file(name))}
   end
 
   def multipart_fixture(name)

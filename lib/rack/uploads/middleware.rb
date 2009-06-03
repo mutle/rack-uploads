@@ -16,8 +16,8 @@ module Rack
         @file_params.each do |file_key|
           if file = req.params[file_key]
             uploads << UploadedFile.new(file_key, file)
-          elsif req.params["#{file_key}_name"] && req.params["#{file_key}_path"]
-            uploads << UploadedNginxFile.new(file_key, {:filename => req.params["#{file_key}_name"], :temp_path => req.params["#{file_key}_path"] })
+          elsif req.params["#{file_key}_file_name"] && req.params["#{file_key}_tmp_path"]
+            uploads << UploadedNginxFile.new(file_key, {:filename => req.params["#{file_key}_name"], :temp_path => req.params["#{file_key}_tmp_path"] })
           end
         end
         env['rack.uploads'] = uploads if uploads.size > 0
