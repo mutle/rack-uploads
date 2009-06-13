@@ -2,11 +2,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{rack-uploads}
-  s.version = "0.0.0"
+  s.version = "0.1.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Mutwin Kraus"]
-  s.date = %q{2009-06-01}
+  s.date = %q{2009-06-13}
   s.email = %q{mutle@blogage.de}
   s.extra_rdoc_files = [
     "LICENSE",
@@ -23,6 +23,7 @@ Gem::Specification.new do |s|
      "lib/rack/uploads.rb",
      "lib/rack/uploads/middleware.rb",
      "lib/rack/uploads/uploaded_file.rb",
+     "rack-uploads.gemspec",
      "spec/fixtures/files/test_data.txt",
      "spec/middleware_spec.rb",
      "spec/spec_helper.rb",
