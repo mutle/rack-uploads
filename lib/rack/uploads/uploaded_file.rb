@@ -15,6 +15,11 @@ module Rack
 
       def mv(destination)
         FileUtils.mv(temp_path, destination)
+        @cleanup_needed = false
+      end
+
+      def cp(destination)
+        FileUtils.cp(temp_path, destination)
       end
 
       def rm
@@ -23,6 +28,10 @@ module Rack
 
       def size
         ::File.size(temp_path)
+      end
+
+      def [](key)
+        @file[key]
       end
 
       def method_missing(meth, *args)

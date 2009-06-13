@@ -12,7 +12,7 @@ describe Rack::Uploads do
     lambda { |env| 
       req = Rack::Request.new(env)
       if req.path_info == "/uploads" && req.post? && env['rack.uploads']
-        [200, {}, "Received Files"]
+        [200, {}, "Received #{env['rack.uploads'].size} Files"]
       else
         [200, {}, "Hello, World!"]
       end
@@ -30,24 +30,23 @@ describe Rack::Uploads do
       @backend ||= Rack::Uploads.new(hello_world)
     end
 
-    it "should receive and store a file upload" do
-      post '/uploads', {:file => multipart_fixture("test_data.txt")}
+    it "should receive a file upload" do
+      post '/uploads', {:file => multipart_fixture("test_data.txt"), "foo[bar]" => multipart_fixture("test_data.txt")}
       last_response.status.should == 200
-      last_response.body.should == "Received Files"
-      File.exist?("/tmp/blogage_upload").should be_true
+      last_response.body.should == "Received 2 Files"
     end
 
-    it "should receive and store a flash upload" do
+    it "should receive a flash upload" do
       post '/uploads', {'Filedata' => multipart_fixture("test_data.txt")}
       last_response.status.should == 200
-      last_response.body.should == "Received Files"
+      last_response.body.should == "Received 1 Files"
     end
 
-    it "should receive and move a nginx upload" do
+    it "should receive a nginx upload" do
       file = multipart_fixture("test_data.txt")
       post '/uploads', nginx_upload_request("file", "test_data.txt")
       last_response.status.should == 200
-      last_response.body.should == "Received Files"
+      last_response.body.should == "Received 1 Files"
     end
 
     it "should cleanup received nginx uploads" do

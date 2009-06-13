@@ -6,6 +6,9 @@ in the Rack env for easy access.
 It works with normal HTTP file uploads, as well as with the Nginx Upload
 Module.
 
+All multipart params get replaced by a Rack::Uploads::UploadedFile, while
+still retaining access to the original parameter value.
+
 == Dependencies
 
 Development dependencies:
@@ -17,7 +20,7 @@ Development dependencies:
 
 === Sinatra
 
-  use Rack::Uploads, :path => "/uploads"
+  use Rack::Uploads
 
   post "/uploads" do
     env['rack.uploads'].each do |upload|
@@ -28,7 +31,7 @@ Development dependencies:
 === Rails
 
   # config/environment.rb
-  config.middleware.use "Rack::Uploads", :path => "/uploads"
+  config.middleware.use "Rack::Uploads"
 
   # app/controller/uploads_controller.rb
   class UploadsController < ApplicationController
@@ -44,15 +47,13 @@ Development dependencies:
 There are a few options you can pass to rack-uploads during
 initializiation:
 
-<tt>:path => "/files"</tt> - This will check for file uploads only on POST requests
-to /files.
-
-<tt>:file_params => ["file", "Filedata"]</tt> - Sets which parameters to check for uploads. Default is
-"file" and "Filedata" (used by Flash uploaders)
-
 <tt>:session_authorized => lambda { |req| req.params['secret'] == "sekrit"
 }</tt> -
 Only allow uploads with the parameter "secret" set to "sekrit"
+
+<tt>:nginx => [{ :tmp_path => "_tmp_path", :filename => "_file_name" }]</tt> - 
+Sets the suffixes of the nginx upload parameters
+
 
 == Copyright
 
