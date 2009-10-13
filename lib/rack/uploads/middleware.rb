@@ -12,7 +12,7 @@ module Rack
         if param_file = file(req, key, param)
           uploads << param_file
           params[key] = param_file
-        elsif params.instance_of?(Hash)
+        elsif param.instance_of?(Hash)
           uploads = extract_uploads_from_arguments(req, param, uploads)
         end
       end
